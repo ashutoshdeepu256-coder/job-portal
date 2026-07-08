@@ -1,9 +1,45 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import "tailwindcss";
+
+body{
+  overflow-x:hidden;
 }
 
-body {
-  font-family: Arial, sans-serif;
+:root{
+  --background:#020617;
+  --card:#0F172A;
+  --border:rgba(255,255,255,.08);
+
+  --primary:#06B6D4;
+  --secondary:#8B5CF6;
+
+  --text:#ffffff;
+  --muted:#94A3B8;
+
+  --radius:22px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Outfit",sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--background);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+::-webkit-scrollbar{
+  width:7px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#0ea5e9;
+  border-radius:20px;
 }

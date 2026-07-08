@@ -13,7 +13,7 @@ function CreateJob() {
     salary: "",
     description: "",
     requirements: "",
-    jobType: "Full Time",
+    jobType: "Full-Time",
     experienceLevel: "Fresher",
   });
 

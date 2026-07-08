@@ -1,42 +1,23 @@
-function Home() {
+import Hero from "../components/home/Hero";
+import Companies from "../components/home/Companies";
+import Stats from "../components/home/Stats";
+import FeaturedJobs from "../components/home/FeaturedJobs";
+import Features from "../components/home/Features";
+import Testimonials from "../components/home/Testimonials";
+import CTA from "../components/home/CTA";
+import Footer from "../components/common/Footer";
+
+export default function Home() {
   return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "100px",
-        padding: "20px",
-      }}
-    >
-      <h1 style={{ fontSize: "48px", color: "#2563eb" }}>
-        Find Your Dream Job 💼
-      </h1>
-
-      <p
-        style={{
-          fontSize: "20px",
-          color: "gray",
-          marginTop: "20px",
-        }}
-      >
-        Explore thousands of jobs from top companies.
-      </p>
-
-      <button
-        style={{
-          marginTop: "30px",
-          padding: "12px 25px",
-          background: "#2563eb",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px",
-        }}
-      >
-        Browse Jobs
-      </button>
-    </div>
+    <>
+      <Hero />
+      <Companies />
+      <Stats />
+      <FeaturedJobs />
+      <Features />
+      <Testimonials />
+      <CTA />
+      <Footer />
+    </>
   );
 }
-
-export default Home;
