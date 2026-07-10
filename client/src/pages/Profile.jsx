@@ -59,7 +59,7 @@ export default function Profile() {
           <div className="flex flex-col md:flex-row items-center gap-8">
 
             <div className="w-40 h-40 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-6xl font-black">
-              {user.name.charAt(0)}
+              {user?.name?.charAt(0) || "U"}
             </div>
 
             <div className="flex-1">

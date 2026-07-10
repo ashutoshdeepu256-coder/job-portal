@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-// Check Login
-const protect = (req, res, next) => {
+const protect = async (req, res, next) => {
   try {
     let token = req.headers.authorization;
 
@@ -14,14 +14,26 @@ const protect = (req, res, next) => {
 
     token = token.split(" ")[1];
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET
+    );
 
-    req.user = decoded;
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    req.user = user;
 
     next();
 
   } catch (error) {
-    res.status(401).json({
+    return res.status(401).json({
       success: false,
       message: "Invalid Token",
     });
