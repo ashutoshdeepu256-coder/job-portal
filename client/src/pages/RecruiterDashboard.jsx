@@ -136,26 +136,45 @@ function RecruiterDashboard() {
 
               </div>
 
-              <div className="flex gap-4 mt-10">
+              <div className="grid grid-cols-3 gap-4 mt-10">
 
-                <Link
-                  to={`/jobs/${job._id}`}
-                  className="flex-1"
-                >
-                  <button className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold hover:scale-105 transition">
-                    View
-                  </button>
-                </Link>
+  <Link to={`/jobs/${job._id}`}>
+    <button className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-semibold hover:scale-105 transition">
+      View
+    </button>
+  </Link>
+  <Link
+to={`/applicants/${job._id}`}
+>
+<button
+className="w-full py-3 rounded-xl bg-purple-600"
+>
+Applicants
+</button>
+</Link>
 
-                <button
-                  onClick={() => handleDelete(job._id)}
-                  className="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 transition font-semibold"
-                >
-                  Delete
-                </button>
+  <Link to={`/edit-job/${job._id}`}>
+    <button className="w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 font-semibold transition">
+      Edit
+    </button>
+  </Link>
 
-              </div>
+  <button
+    onClick={() => handleDelete(job._id)}
+    className="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 transition font-semibold"
+  >
+    Delete
+  </button>
 
+</div>
+            <Link
+  to={`/edit-job/${job._id}`}
+  className="flex-1"
+>
+  <button className="w-full py-3 rounded-xl bg-yellow-500 hover:bg-yellow-600 font-semibold">
+    Edit
+  </button>
+</Link>
             </div>
           ))
         )}

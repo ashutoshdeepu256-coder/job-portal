@@ -42,17 +42,58 @@ const createJob = async (req, res) => {
 };
 
 // ==============================
-// Get All Jobs
+// Get All Jobs (Search + Filters)
 // ==============================
 const getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().populate("postedBy", "name email");
+    const {
+      keyword,
+      location,
+      jobType,
+      salary,
+    } = req.query;
+
+    let filter = {};
+
+    // Search by Title
+    if (keyword) {
+      filter.title = {
+        $regex: keyword,
+        $options: "i",
+      };
+    }
+
+    // Search by Location
+    if (location) {
+      filter.location = {
+        $regex: location,
+        $options: "i",
+      };
+    }
+
+    // Filter by Job Type
+    if (jobType) {
+      filter.jobType = jobType;
+    }
+
+    // Filter by Salary
+    if (salary) {
+      filter.salary = {
+        $regex: salary,
+        $options: "i",
+      };
+    }
+
+    const jobs = await Job.find(filter)
+      .populate("postedBy", "name email")
+      .sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
       count: jobs.length,
       jobs,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -66,10 +107,8 @@ const getAllJobs = async (req, res) => {
 // ==============================
 const getJobById = async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id).populate(
-      "postedBy",
-      "name email"
-    );
+    const job = await Job.findById(req.params.id)
+      .populate("postedBy", "name email");
 
     if (!job) {
       return res.status(404).json({
@@ -82,6 +121,7 @@ const getJobById = async (req, res) => {
       success: true,
       job,
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -89,7 +129,10 @@ const getJobById = async (req, res) => {
     });
   }
 };
+
+// ==============================
 // Update Job
+// ==============================
 const updateJob = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
@@ -122,7 +165,10 @@ const updateJob = async (req, res) => {
     });
   }
 };
+
+// ==============================
 // Delete Job
+// ==============================
 const deleteJob = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
@@ -140,6 +186,7 @@ const deleteJob = async (req, res) => {
       success: true,
       message: "Job Deleted Successfully",
     });
+
   } catch (error) {
     res.status(500).json({
       success: false,

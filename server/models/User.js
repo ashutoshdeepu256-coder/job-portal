@@ -25,6 +25,16 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "recruiter"],
       default: "student",
     },
+    resume: {
+     type: String,
+    default: "",
+  },
+  savedJobs: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Job",
+  },
+],
   },
   {
     timestamps: true,

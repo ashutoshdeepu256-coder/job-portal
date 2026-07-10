@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
 const dns = require('dns');
+const path = require("path");
 const applicationRoutes = require("./routes/applicationRoutes");
 dns.setServers(['1.1.1.1', '8.8.8.8']);
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
   res.send("🚀 Job Portal Backend is Running...");

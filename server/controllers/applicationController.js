@@ -77,7 +77,7 @@ const getApplicantsByJob = async (req, res) => {
     const applications = await Application.find({
       job: req.params.jobId,
     })
-      .populate("student", "name email role")
+      .populate("student", "name email role resume")
       .populate("job", "title company");
 
     res.status(200).json({
@@ -93,9 +93,40 @@ const getApplicantsByJob = async (req, res) => {
     });
   }
 };
+// Update Application Status
+const updateApplicationStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
 
+    const application = await Application.findById(req.params.id);
+
+    if (!application) {
+      return res.status(404).json({
+        success: false,
+        message: "Application not found",
+      });
+    }
+
+    application.status = status;
+
+    await application.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Status Updated",
+      application,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 module.exports = {
   applyJob,
   getMyApplications,
   getApplicantsByJob,
+  updateApplicationStatus,
 };

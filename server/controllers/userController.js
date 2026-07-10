@@ -1,3 +1,4 @@
+const Job = require("../models/Job");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -92,8 +93,67 @@ const loginUser = async (req, res) => {
     });
   }
 };
+// Save Job
+const saveJob = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    const job = await Job.findById(req.params.jobId);
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    if (user.savedJobs.includes(job._id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Already Saved",
+      });
+    }
+
+    user.savedJobs.push(job._id);
+
+    await user.save();
+
+    res.json({
+      success: true,
+      message: "Job Saved Successfully",
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// Get Saved Jobs
+const getSavedJobs = async (req, res) => {
+  try {
+
+    const user = await User.findById(req.user.id)
+      .populate("savedJobs");
+
+    res.json({
+      success: true,
+      jobs: user.savedJobs,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 module.exports = {
   registerUser,
   loginUser,
+  saveJob,
+  getSavedJobs,
 };

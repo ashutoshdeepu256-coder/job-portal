@@ -81,31 +81,47 @@ function Navbar() {
           )}
 
           {user?.role === "student" && (
-            <Link
-              className="text-gray-300 hover:text-cyan-400 transition"
-              to="/student-dashboard"
-            >
-              Dashboard
-            </Link>
-          )}
+  <>
+    <Link
+      className="text-gray-300 hover:text-cyan-400 transition"
+      to="/student-dashboard"
+    >
+      Dashboard
+    </Link>
+
+    <Link
+      className="text-gray-300 hover:text-cyan-400 transition"
+      to="/profile"
+    >
+      Profile
+    </Link>
+  </>
+)}
 
           {user?.role === "recruiter" && (
-            <>
-              <Link
-                className="text-gray-300 hover:text-cyan-400 transition"
-                to="/create-job"
-              >
-                Create Job
-              </Link>
+  <>
+    <Link
+      className="text-gray-300 hover:text-cyan-400 transition"
+      to="/create-job"
+    >
+      Create Job
+    </Link>
 
-              <Link
-                className="text-gray-300 hover:text-cyan-400 transition"
-                to="/recruiter-dashboard"
-              >
-                Dashboard
-              </Link>
-            </>
-          )}
+    <Link
+      className="text-gray-300 hover:text-cyan-400 transition"
+      to="/recruiter-dashboard"
+    >
+      Dashboard
+    </Link>
+
+    <Link
+      className="text-gray-300 hover:text-cyan-400 transition"
+      to="/profile"
+    >
+      Profile
+    </Link>
+  </>
+)}
 
           {user && (
             <button
