@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./config/db");
 const dns = require("dns");
+const fs = require("fs");
 const path = require("path");
 const applicationRoutes = require("./routes/applicationRoutes");
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -23,14 +24,23 @@ app.use("/api/applications", applicationRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const clientBuildPath = path.join(__dirname, "..", "client", "dist");
+const indexPath = path.join(clientBuildPath, "index.html");
 app.use(express.static(clientBuildPath));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(clientBuildPath, "index.html"));
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send("Frontend build not generated yet.");
+  }
 });
 
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(clientBuildPath, "index.html"));
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send("Frontend build not generated yet.");
+  }
 });
 
 const PORT = process.env.PORT || 5000;
