@@ -27,8 +27,6 @@ Connecting **Students** and **Recruiters** through a secure, role-based, full-st
 
 **HireVerse** is a full-stack **MERN** job portal that gives students a focused space to discover and apply for jobs, and gives recruiters a lightweight applicant-tracking workflow to post roles and manage candidates — all behind a single, JWT-secured, role-based platform.
 
-This README is written the way documentation for a production SaaS product should be written: clear architecture, real API contracts, real database design, and an honest account of what's shipped today versus what's on the roadmap.
-
 > [!NOTE]
 > The **"AI-Powered"** vision (resume analysis, smart job matching) is part of HireVerse's product roadmap — see [🚀 Future Enhancements](#future-enhancements). The current release focuses on a rock-solid, secure core hiring workflow that the AI layer will be built on top of.
 
